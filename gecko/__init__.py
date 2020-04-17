@@ -111,6 +111,8 @@ class GeckoProject(AliasedObject):
         self.ida = ida_api
         self.utils = ProjectUtils(self)
 
+        # # Sorry.. Context->Namespace->Struct->Member
+        # self._structs = _collections.defaultdict(lambda: _collections.defaultdict(lambda: _collections.defaultdict(lambda: _collections.defaultdict(list))))
 
 def set_global_project(project):
     global CURRENT_PROJECT
@@ -178,18 +180,21 @@ def _version_is_supported(version, min_version=None, max_version=None, cache_ent
 
     return True
 
-def enumerate_registered_members(version=None, context_name=None, namespaces=None, class_names=None, member_names=None, filter_callback=None):
+@project_util_bind
+def enumerate_registered_members(version=None, context=None, namespaces=None, structs=None, members=None, filter_callback=None, project=None):
+    # TODO: Get version from project
+
     for cache_entry in MEMBER_CACHE.values():
-        if context_name is not None and cache_entry['context_name'] != context_name:
+        if context is not None and cache_entry['context'] != context:
             continue
 
         if namespaces is not None and cache_entry['namespace'] not in namespaces:
             continue
 
-        if class_names is not None and cache_entry['class_name'] not in class_names:
+        if structs is not None and cache_entry['struct'] not in structs:
             continue
 
-        if member_names is not None and cache_entry['member_name'] not in member_names:
+        if members is not None and cache_entry['member'] not in members:
             continue
 
         if version is not None and not _version_is_supported(version, cache_entry=cache_entry):
@@ -206,36 +211,38 @@ def _update_member_cache(unique, overwrite=True, **kwargs):
     for key, value in kwargs.items():
 
         if not overwrite:
-            if key not in MEMBER_CACHE[unique] or MEMBER_CACHE[unique][key] is not None:
+            if key in MEMBER_CACHE[unique] and MEMBER_CACHE[unique][key] is not None:
+                print("Not overwriting", key)
                 continue
 
+        print("Overwriting", key)
         MEMBER_CACHE[unique][key] = value
         updated += 1
     return updated
 
 
-def member(member_name, context_name=None, namespace=None, class_name=None, min_version=None, max_version=None, dont_cache=False, **kwargs1):
+def member(member, context=None, namespace=None, struct=None, min_version=None, max_version=None, dont_cache=False, **kwargs1):
 
     def decorator(func):
-        class_name_ = class_name
+        struct_ = struct
 
-        class_was_guessed = False
-        if class_name_ is None:
-            class_name_ = func.__module__
-            class_was_guessed = True
+        struct_was_guessed = False
+        if struct_ is None:
+            struct_ = func.__module__
+            struct_was_guessed = True
 
         # ex: (kernel, process, task_struct, pid, ...)
-        unique = (context_name, namespace, class_name_, member_name, min_version, max_version)
+        unique = (context, namespace, struct_, member, min_version, max_version)
 
         _update_member_cache(unique, overwrite=False,
                              function=func,
                              dont_cache=dont_cache,
 
-                             context_name=context_name,
+                             context=context,
                              namespace=namespace,
-                             class_name=class_name_,
-                             class_was_guessed=class_was_guessed,
-                             member_name=member_name,
+                             struct=struct_,
+                             struct_was_guessed=struct_was_guessed,
+                             member=member,
 
                              min_version=min_version,
                              max_version=max_version,

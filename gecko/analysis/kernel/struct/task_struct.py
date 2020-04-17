@@ -1,6 +1,6 @@
 import gecko as _gecko
 
-@_gecko.member('comm', class_name='tast_struct', namespace='process', context='LinuxKernel', min_version=None, max_version=None, random_extra_info=3)
+@_gecko.member('comm', struct='tast_struct', namespace='process', context='LinuxKernel', min_version=None, max_version=None, random_extra_info=3)
 def comm(project=None):
 
     # Find the indicative warning string
