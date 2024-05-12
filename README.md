@@ -13,7 +13,7 @@ For example we want to run a [Volatility](https://github.com/volatilityfoundatio
 Can we use information/code existing in the dump to guess the specifics for the configuration profile we need?    
 
 The Volatility plugin  `linux_pslist` needs several members for the `task_struct` structure (`comm`, `pid`, `next`, ...).  
-If we find a kernal function which does something like
+If we find a kernal function which does [something like](https://github.com/torvalds/linux/blob/ba16c1cf11c9f264b5455cb7d57267b39925409a/mm/oom_kill.c#L950)
 ```c
 printk("Process %s (%d) crashed.\n", task->comm, task->pid);
 ```
