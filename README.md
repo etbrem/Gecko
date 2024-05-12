@@ -1,7 +1,10 @@
 # Dead Gecko Skeleton (non-working POC)    
 
 When scaling up in both offensive and defensive cyber tools,  
-the need arrises to create generic abstractions in order to create specific configuration profiles for the tools.
+the need arrises to create generic abstractions in order to create specific configuration profiles for the tools.  
+
+The same source code can produce different compiled code based on the toolchain and configuration during compile-time.  
+This means addresses and structures for the same codebase may have members at different offsets (because of padding or #ifdef statements for example).   
 
 For offensive cyber one might need to be able to overwrite a specific member in a struct, so they need to know the offset of the struct beforehand.  
 For defensive cyber one might want to analyse a memory dump, but they don't have access to the sourcecode/debug symbols of the system's code, so they don't have information about compiled structures.  
@@ -37,5 +40,5 @@ Combining this with a strong static analysis framework like IDA enables us to fi
 and create generic heuristical signatures on the intermediate representation.  
 
 This is useful to reconstruct structures and find addresses/offsets in compiled code.  
-Can be used to create configuration profiles for exploits or memory forensics.    
+Can be used to create configuration profiles for exploits or memory forensics tools.    
 
