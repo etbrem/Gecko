@@ -3,7 +3,7 @@
 When scaling up in both offensive and defensive cyber tools,  
 the need arrises to create generic abstractions in order to create specific configuration profiles for the tools.
 
-For offensive cyber one might need to be able to overwrite a specific member in a struct, so they need to know the offset of the struct beforehand.
+For offensive cyber one might need to be able to overwrite a specific member in a struct, so they need to know the offset of the struct beforehand.  
 For defensive cyber one might want to analyse a memory dump, but they don't have access to the sourcecode/debug symbols of the system's code, so they don't have information about compiled structures.  
 
 For example we want to run a [Volatility](https://github.com/volatilityfoundation/volatility) plugin on a memory dump, but we weren't given any data other than the dump.   
