@@ -1,4 +1,4 @@
-# Gecko Skeleton (non-working POC)    
+# Dead Gecko Skeleton (non-working POC)    
 
 When scaling up in both offensive and defensive cyber tools,  
 the need arrises to create generic abstractions in order to create specific configuration profiles for the tools.
