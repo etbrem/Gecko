@@ -6,7 +6,7 @@ the need arrises to create generic abstractions in order to create specific conf
 The same source code can produce different compiled code based on the toolchain and configuration during compile-time.  
 This means addresses and structures for the same codebase may have members at different offsets (because of padding or #ifdef statements for example).   
 
-For offensive cyber one might need to be able to overwrite a specific member in a struct, so they need to know the offset of the struct beforehand.  
+For offensive cyber one might need to be able to overwrite a specific member in a struct, so they need to know the offset in the struct beforehand.  
 For defensive cyber one might want to analyse a memory dump, but they don't have access to the sourcecode/debug symbols of the system's code, so they don't have information about compiled structures.  
 
 For example we want to run a [Volatility](https://github.com/volatilityfoundation/volatility) plugin on a memory dump, but we weren't given any data other than the dump.   
