@@ -34,7 +34,7 @@ removing the need of accessing the source code or debug symbols for the code we'
 
 The angr symbolic execution framework enables us to lift compiled code into an intermediate representation  
 so an analysis is written somewhat generically and not for a specific instruction set,  
-as well as symbolically execute specific parts of code while analysing the memory operations and identifying behaviors.
+as well as symbolically executing specific parts of the code while analysing the memory operations and identifying behaviors.
 
 Combining this with a strong static analysis framework like IDA enables us to find "anchors" (specific strings, integers, function calls, ...)    
 and create generic heuristical signatures on the intermediate representation.  
