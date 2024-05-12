@@ -14,7 +14,8 @@ If we find a kernal function which does something like
 ```c
 printk("Process %s (%d) crashed.\n", task->comm, task->pid);
 ```
-we should be able to analyse it and reconstruct needed offsets of different members in the `task_struct` structure.  
+we should be able to analyse it and reconstruct needed offsets of different members in the `task_struct` structure   
+(by finding the string -> finding the call -> finding the 2nd and 3rd arguments to the call).   
 
 ## Static analysis framework built around angr &amp; IDA
 
